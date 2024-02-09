@@ -41,6 +41,9 @@ import webpackStream from 'webpack-stream';
 import { readFileSync } from 'fs';
 // import path from 'node:path'; // example 1
 import path from 'path'; // example 2
+
+import ghPages from 'gulp-gh-pages';
+
 const rootFolder = path.basename(path.resolve());
 
 // SRC & APP path folders
@@ -349,6 +352,12 @@ const toProd = (done) => {
   isProd = true;
   done();
 };
+
+//gh-pages
+gulp.task('deploy', function () {
+  return gulp.src('./app/**/*')
+    .pipe(ghPages());
+});
 
 // default mode
 export default series(clean, htmlInclude, scripts, styles, assets, images, webpImages, svgSprites, watchFiles);
